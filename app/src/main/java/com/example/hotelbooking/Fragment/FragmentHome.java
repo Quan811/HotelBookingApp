@@ -1,7 +1,9 @@
 package com.example.hotelbooking.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +18,9 @@ import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.hotelbooking.Activities.HotelDetailActivity;
 import com.example.hotelbooking.Adapter.HotelClientAdapter;
+import com.example.hotelbooking.Adapter.IListener;
 import com.example.hotelbooking.Adapter.SlideImageAdapter;
 import com.example.hotelbooking.Model.Hotel;
 import com.example.hotelbooking.R;
@@ -31,13 +35,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class FragmentHome extends Fragment {
+public class FragmentHome extends Fragment implements IListener {
     private ViewPager2 viewPager2;
     private RecyclerView rcv;
     private HotelClientAdapter hotelAdapter;
     private Handler slidehandler = new Handler();
     private SearchView sv;
     private HotelClientAdapter adapter;
+
+    private FirebaseRecyclerOptions<Hotel> options;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -51,7 +58,7 @@ public class FragmentHome extends Fragment {
                         .setQuery(FirebaseDatabase.getInstance().getReference().child("Hotel"), Hotel.class)
                         .build();
 
-        hotelAdapter = new HotelClientAdapter(options);
+        hotelAdapter = new HotelClientAdapter(options, this);
         rcv.setAdapter(hotelAdapter);
 
         //set anh cho viewpager
@@ -62,7 +69,7 @@ public class FragmentHome extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 imgUrlList.clear();
-                for(DataSnapshot hotelSnapShot : snapshot.getChildren()){
+                for (DataSnapshot hotelSnapShot : snapshot.getChildren()) {
                     String imgURl = hotelSnapShot.child("img_url").getValue(String.class);
                     imgUrlList.add(imgURl);
                     SlideImageAdapter adapter = new SlideImageAdapter(imgUrlList, viewPager2);
@@ -84,8 +91,8 @@ public class FragmentHome extends Fragment {
         compositePageTransformer.addTransformer(new ViewPager2.PageTransformer() {
             @Override
             public void transformPage(@NonNull View page, float position) {
-                float r = 1-Math.abs(position);
-                page.setScaleY(0.75f + r*0.25f);
+                float r = 1 - Math.abs(position);
+                page.setScaleY(0.75f + r * 0.25f);
             }
         });
         viewPager2.setPageTransformer(compositePageTransformer);
@@ -127,17 +134,27 @@ public class FragmentHome extends Fragment {
                 return false;
             }
         });
+
+
         return view;
     }
-    private void searchByLocation(String s){
-        FirebaseRecyclerOptions<Hotel> options =
-                new FirebaseRecyclerOptions.Builder<Hotel>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Hotel").orderByChild("location").startAt(s).endAt(s + "\uf8ff"), Hotel.class)
-                        .build();
 
-        adapter =  new HotelClientAdapter(options);
+    @Override
+    public void onItemClick(Hotel index) {
+        Intent intent = new Intent(getActivity(), HotelDetailActivity.class);
+        intent.putExtra("hotel_name", index.getName());
+        startActivity(intent);
+    }
+
+    private void searchByLocation(String s) {
+        options = new FirebaseRecyclerOptions.Builder<Hotel>()
+                .setQuery(FirebaseDatabase.getInstance().getReference().child("Hotel").orderByChild("location").startAt(s).endAt(s + "\uf8ff"), Hotel.class)
+                .build();
+
+        adapter = new HotelClientAdapter(options, this);
         adapter.startListening();
         rcv.setAdapter(adapter);
+
 
     }
 
