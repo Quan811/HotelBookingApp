@@ -36,14 +36,15 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         etEmail = findViewById(R.id.email);
         etPassword = findViewById(R.id.password);
-        //bat sk nut login
+
+        //ấn login thì thực hiện authenticate bằng phương thức CheckLogin
         btLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 CheckLogin();
             }
         });
-        //bat sk nut dang ky
+        //chuyển từ giao diện đăng nhập sang form đăng ký
         tvRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

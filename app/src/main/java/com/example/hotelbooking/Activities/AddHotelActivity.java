@@ -67,7 +67,8 @@ public class AddHotelActivity extends AppCompatActivity {
         bt_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
+                Intent intent = new Intent(AddHotelActivity.this, AdminHomeActivity.class);
+                startActivity(intent);
             }
         });
     }

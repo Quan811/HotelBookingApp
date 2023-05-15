@@ -130,6 +130,7 @@ public class HotelAdminAdapter extends FirebaseRecyclerAdapter<Hotel, HotelAdmin
                     public void onClick(DialogInterface dialog, int which) {
                         FirebaseDatabase.getInstance().getReference().child("Hotel")
                                 .child(getRef(position).getKey()).removeValue();
+                        Toast.makeText(holder.hotel_name.getContext(), "Xoá thành công", Toast.LENGTH_SHORT).show();
                     }
                 });
                 builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {

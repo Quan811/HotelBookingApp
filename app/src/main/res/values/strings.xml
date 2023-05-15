@@ -3,4 +3,5 @@
     <string name="taotk"><u>Tạo tài khoản mới</u></string>
     <string name="dangnhapngay"><u>Đăng nhập ngay</u>.</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="dangxuat"><u>Đăng xuất</u></string>
 </resources>

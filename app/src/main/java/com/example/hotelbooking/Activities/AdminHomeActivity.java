@@ -8,12 +8,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.example.hotelbooking.Adapter.HotelAdminAdapter;
 import com.example.hotelbooking.Model.Hotel;
 import com.example.hotelbooking.R;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
 
@@ -22,6 +24,7 @@ public class AdminHomeActivity extends AppCompatActivity {
     private FloatingActionButton fl_button;
     private HotelAdminAdapter hotelAdapter;
     private SearchView sv;
+    private TextView tv_logout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +33,17 @@ public class AdminHomeActivity extends AppCompatActivity {
         fl_button = findViewById(R.id.fl_button);
         rcv = findViewById(R.id.rcv);
         sv = findViewById(R.id.sv);
+        tv_logout = findViewById(R.id.tv_logout);
 
+        //bat sk cho TV Dang Xuat
+        tv_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
         //bat sk cho floatbutton
         fl_button.setOnClickListener(new View.OnClickListener() {
             @Override
