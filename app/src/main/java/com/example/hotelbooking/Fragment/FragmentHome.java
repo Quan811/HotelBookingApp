@@ -143,6 +143,10 @@ public class FragmentHome extends Fragment implements IListener {
     public void onItemClick(Hotel index) {
         Intent intent = new Intent(getActivity(), HotelDetailActivity.class);
         intent.putExtra("hotel_name", index.getName());
+        intent.putExtra("hotel_img", index.getImg_url());
+        intent.putExtra("hotel_location", index.getLocation());
+        intent.putExtra("hotel_price", index.getPrice());
+        intent.putExtra("hotel_discount", index.getDiscount());
         startActivity(intent);
     }
 
