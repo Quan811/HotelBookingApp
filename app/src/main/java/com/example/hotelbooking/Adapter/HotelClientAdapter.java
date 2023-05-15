@@ -18,9 +18,15 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import java.text.DecimalFormat;
 
 public class HotelClientAdapter extends FirebaseRecyclerAdapter<Hotel, HotelClientAdapter.viewHolder> {
+    public IListener listener;
 
+    public HotelClientAdapter(@NonNull FirebaseRecyclerOptions options, IListener listener) {
+        super(options);
+        this.listener = listener;
+    }
     public HotelClientAdapter(@NonNull FirebaseRecyclerOptions options) {
         super(options);
+        this.listener = null;
     }
 
     @Override
@@ -34,12 +40,10 @@ public class HotelClientAdapter extends FirebaseRecyclerAdapter<Hotel, HotelClie
         holder.hotel_discount.setText("-" + model.getDiscount() + "%");
         holder.hotel_location.setText(model.getLocation());
 
-        Glide.with(holder.hotel_img.getContext())
-                .load(model.getImg_url())
-                .placeholder(R.drawable.hera)
-                .error(R.drawable.hera)
-                .centerCrop()
-                .into(holder.hotel_img);
+        Glide.with(holder.hotel_img.getContext()).load(model.getImg_url()).placeholder(R.drawable.hera).error(R.drawable.hera).centerCrop().into(holder.hotel_img);
+        holder.itemView.setOnClickListener(view -> {
+            listener.onItemClick(model);
+        });
     }
 
     @NonNull
@@ -50,9 +54,10 @@ public class HotelClientAdapter extends FirebaseRecyclerAdapter<Hotel, HotelClie
     }
 
 
-    public class viewHolder extends RecyclerView.ViewHolder{
+    public class viewHolder extends RecyclerView.ViewHolder {
         ImageView hotel_img;
         TextView hotel_name, hotel_location, hotel_price, hotel_discount;
+
         public viewHolder(@NonNull View itemView) {
             super(itemView);
             hotel_img = itemView.findViewById(R.id.hotel_img);
@@ -60,6 +65,7 @@ public class HotelClientAdapter extends FirebaseRecyclerAdapter<Hotel, HotelClie
             hotel_location = itemView.findViewById(R.id.hotel_location);
             hotel_price = itemView.findViewById(R.id.hotel_price);
             hotel_discount = itemView.findViewById(R.id.hotel_discount);
+
         }
     }
 }
