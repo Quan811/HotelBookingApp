@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "338521714974",
+    "firebase_url": "https://hotelbooking-3384f-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "hotelbooking-3384f",
+    "storage_bucket": "hotelbooking-3384f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:338521714974:android:e6b1204a8f789706ced90f",
+        "android_client_info": {
+          "package_name": "com.example.hotelbooking"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "338521714974-qlipnrhlo2r036be1r0r3ma0l8gjdfp8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD32hLpmTwMvF4KAFB7GHYCaRGk3ycXxd8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "338521714974-qlipnrhlo2r036be1r0r3ma0l8gjdfp8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

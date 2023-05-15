@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragment.FragmentHome">
+
+    <LinearLayout
+        android:id="@+id/linear"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:orientation="vertical">
+        <SearchView
+            android:id="@+id/sv"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:queryHint="Nhập tên địa điểm cần tìm"
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_below="@id/linear"
+        >
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_below="@id/linear"
+            android:layout_margin="10dp"
+            />
+
+        <TextView
+            android:id="@+id/tvdexuat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/linear"
+            android:text="Nổi bật"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:padding="10dp"
+
+            />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv_client"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvdexuat"
+            android:padding="10dp" />
+    </LinearLayout>
+
+
+
+</RelativeLayout>
